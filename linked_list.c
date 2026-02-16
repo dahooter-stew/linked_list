@@ -1,11 +1,10 @@
 #include "linked_list.h"
-
 #include <stdlib.h>
 #include <stdio.h>
 
 node_int* create_list_node(int val)
 {
-  node_int* node = (node_int*)malloc(sizeof(node_int));
+  node_int* node = malloc(sizeof(node_int));
 
   *node = (node_int) {
     .next = NULL,
@@ -72,6 +71,8 @@ int list_insert(node_int** root, int val, int at)
     node_int* temp = create_list_node(val);
     temp->next = *root;
     *root = temp;
+
+    return 0;
   }
 
   while (curr != NULL)
@@ -146,7 +147,7 @@ int print_list(node_int* root)
 
   while (root != NULL)
   {
-    printf("( %i )->", root->data);
+    printf("( %d )->", root->data);
     root = root->next;
   }
   printf("\n");
@@ -191,28 +192,6 @@ node_int* number_to_list(int number)
 
   return curr;
   
-}
-
-node_int* add_lists(node_int* a, node_int* b)
-{
-  node_int* out = create_list_node(0);
-
-  node_int* curr = out;
-  while (a || b)
-  {
-    int sum = 0;
-    if (a) sum += a->data;
-    if (b) sum += b->data;
-
-    curr->next = create_list_node(sum);
-    curr = curr->next;
-    a = a->next;
-    b = b->next;
-  }
-  curr = out->next;
-  free(out);
-
-  return curr;
 }
 
 node_int* add_linked_numbers(node_int* a, node_int* b)
